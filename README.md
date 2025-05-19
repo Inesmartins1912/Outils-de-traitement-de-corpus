@@ -12,7 +12,29 @@ Pour ce faire il faut dans un premier temps constituer un corpus d'environ 300 c
 
 ## Contenu du dépôt :
 
-
+Outils_de_traitement_de_corpus/
+├── Journal.md                   # Journal de bord du projet
+├── scr/                         # Dossier contenant les scripts
+│   ├── web_scrap_lyrics         # Script pour effectuer le scraping soit la récupération des paroles
+│   ├── clean_data_csv           # Script pour le pré-traitement des données et la création d'un fichier csv
+│   ├──                          # Script
+|   └──                          # Script
+├── corpus/                      # Dossier contenant les corpus par genre
+│   ├── corpus_rap
+│   ├── corpus_rock
+│   └── corpus_reggae
+├── results/
+│   ├── 
+│   ├── 
+│   ├── 
+│   ├── 
+│   ├── 
+│   ├── 
+│   └──  
+├── tableaux/
+│   ├── 
+│   └── lyrics.csv               # Corpus nettoyé prêt à être utilisé
+└── README.md
 
 ---
 
