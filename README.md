@@ -12,6 +12,7 @@ Pour ce faire il faut dans un premier temps constituer un corpus d'environ 300 c
 
 ## Contenu du dépôt :
 
+```
 Outils_de_traitement_de_corpus/
 ├── Journal.md                   # Journal de bord du projet
 ├── scr/                         # Dossier contenant les scripts
@@ -35,6 +36,7 @@ Outils_de_traitement_de_corpus/
 │   ├── 
 │   └── lyrics.csv               # Corpus nettoyé prêt à être utilisé
 └── README.md
+```
 
 ---
 
