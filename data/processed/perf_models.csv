@@ -1,0 +1,4 @@
+Modèle,Accuracy moyenne,Écart-type
+Naive Bayes,0.5865,0.0325
+SVM,0.5730,0.0369
+Random Forest,0.5820,0.0401
