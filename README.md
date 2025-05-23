@@ -52,5 +52,4 @@ Outils_de_traitement_de_corpus/
 ## Bibliographie :
 
 * [Scikit-learn Documentation](https://scikit-learn.org/stable/)
-* [Weka Wiki](https://waikato.github.io/weka-wiki/)
 * Contenu des cours d'Outils de Traitement de Corpus - Ève Sauvage
