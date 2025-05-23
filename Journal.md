@@ -28,10 +28,16 @@ Pour la visualisation du corpus, j'ai fait le choix d'utiliser dans un premier t
 A partir des données que vous avez récupérées, augmentez vos données en créant un dataset synthétique.
 Choississez l’architecture adaptée à votre tâche et trouvez un modèle qui correspond à votre tâche et à cette architecture.
 
-## TP5 : Finetuning avec le trainer d'hugging face
+## TP5 : Finetuning du trainer d'hugging face
 
 Finetuner le modèle pretrained qui correspond le plus à vos données grâce au trainer d’hugging face
 
 ## TP6 : Évaluation de mon modèle 
 
-Evaluer votre modèle
+Pour ce qui est de l'évaluation du modèle le script ```algo_test``` renvoie des matrices de confusion pour plusieurs modèles testés (Random Forest, Naive Bayes et SVM), ainsi que leurs résultats de performances que l'on retrouve dans perf_models.csv. On peut conclure de ces résultats ainsi que des matrices de confusion que ces modèles sont relativemet performant. En effet, on remarque plusieurs choses :  
+- Tout d'abord, le genre rap est plus facilement identifiable, avec un lexique que semble se diversifier des deux autres genres, ce qui était également visible dans les premiers visuels (schéma des fréquences et wordclouds). Alors que d'autre part la pop et le R&B semblent lexicalement très proches, ce qui les rend plus difficlement identifiables et classifiables pour le modèle.  
+- Pour ce qui est des résultats de preformances on obtient les taux de précision globale (accuracy) suivants : 
+    Naive Bayes: Accuracy moyenne = 0.5865 | Écart-type = 0.0325
+    SVM: Accuracy moyenne = 0.5730 | Écart-type = 0.0369
+    Random Forest: Accuracy moyenne = 0.5820 | Écart-type = 0.0401
+  On peut donc constater une légère différence entre les trois modèles avec Naive Bayes ayant un taux de précision global très haut et l'écart-type le plus faible, et SVM et Random Forect un peu moins fiable   avec un taux de précision plus faible pour SVM mais un écart-type plus grand pour Random Forest.
