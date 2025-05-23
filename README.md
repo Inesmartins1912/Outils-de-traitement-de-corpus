@@ -20,7 +20,7 @@ Outils_de_traitement_de_corpus/
 │   ├── scrap_genre              # Script de scraping fonctionnel par genre
 │   ├── clean_data_csv           # Script pour le pré-traitement des données et la création d'un fichier csv
 │   ├── stat_text                # Script de calculs statistiques sur les corpus
-|   ├── algo_tests               # Script utilisé pour tester différents algorithmes de classification sur les données
+|   ├── algo_tests               # Script utilisé pour tester la classification sur les données et renvoyer une évaluation automatique de ces données
 │   ├── increase_data            # Script permettant une augmentation du dataset
 |   └── 
 ├── data/
