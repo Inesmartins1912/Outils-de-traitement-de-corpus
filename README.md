@@ -24,15 +24,19 @@ Outils_de_traitement_de_corpus/
 │   ├── increase_data            # Script permettant une augmentation du dataset
 |   └── 
 ├── data/
-|   └── raw                      # Dossier contenant les corpus par genre
+|   └── raw/                      # Dossier contenant les corpus par genre
 │   |   ├── corpus_rap
 │   |   ├── corpus_rnb
 │   |   └── corpus_pop
-|   └── processed                # Dossier contenant les autres fichiers utilisés comme données par des scripts
+|   └── processed/                # Dossier contenant les autres fichiers utilisés comme données par des scripts
 │   |   ├── lyrics.csv
 │   |   ├── perf_models.csv
-│   |   └── results_gridsearc.csv
-├── results/                     # Dossier contenant tous les visuels et résultats
+│   |   ├── results_gridsearc.csv
+│   |   └── corpus_increase/
+|   │   |   ├── pop
+|   │   |   ├── rap
+|   │   |   └── rnb
+├── results/                      # Dossier contenant tous les visuels et résultats
 │   ├── freq_pop.png
 │   ├── freq_rap.png
 │   ├── freq_rnb.png
