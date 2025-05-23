@@ -51,12 +51,6 @@ Outils_de_traitement_de_corpus/
 
 ---
 
-## Résultats et évaluations :
-
-
-
----
-
 ## Bibliographie :
 
 * [Scikit-learn Documentation](https://scikit-learn.org/stable/)
