@@ -10,6 +10,8 @@
 **Où allez vous récupérer vos données ? :** Divers sites pour trouver d'abord les artistes par genre, puis les titres des chansons et ensuite les paroles de chaque chanson.  
 **Sont-elles libres d’accès ? :** Ces données sont libres d'accès.  
 
+J'ai essayé de mettre les commentaires et les noms de variables en anglais autant que possible car c'est souvent la langue préférée en langage de scripts mais ayant eu besoin d'avoir tout en français pour ne rien oublier lorsque je créais les scrips il est posible qu'il en reste quelques uns en français.
+
 ## TP2 : Web-Scraping 
 
 La récupération du corpus de travail ne s'est pas passée comme prévue, en effet je voulais tout d'abord scraper les artistes, puis les titres et enfin les paroles mais cela ne fonctionnait pas bien malgré de multiples modifications je me retrouvais toujours avec des scraps vides ou bien complètement bloquée, je me suis donc retrouvée avec la partie permettant de scraper des artistes qui fonctionnait et le reste non. Ayant perdu beaucoup de temps sur cette étape et afin de pouvoir tout de même rendre ce projet j'ai donc été contrainte d'utiliser l'API Genius pour les parties titres de chansons et paroles car je ne me voyais pas changer de sujet en ayant déjà avancé tous les autres scripts en parallèle.  
