@@ -1,148 +1,97 @@
-{
- "cells": [
-  {
-   "cell_type": "code",
-   "execution_count": 33,
-   "id": "92a25ebb-51e2-46dc-9086-92f41bd9bf1f",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "[POP] Avg: 285.0 | Min: 137 | Max: 731\n",
-      "[RAP] Avg: 416.8 | Min: 96 | Max: 839\n",
-      "[RNB] Avg: 293.1 | Min: 51 | Max: 593\n"
-     ]
-    }
-   ],
-   "source": [
-    "import os\n",
-    "import glob\n",
-    "from collections import Counter\n",
-    "import pandas as pd\n",
-    "import matplotlib.pyplot as plt\n",
-    "import seaborn as sns\n",
-    "from wordcloud import WordCloud\n",
-    "\n",
-    "# Define genre folders\n",
-    "genre_folders = {\n",
-    "    \"pop\": \"corpus_pop\",\n",
-    "    \"rap\": \"corpus_rap\",\n",
-    "    \"rnb\": \"corpus_rnb\"\n",
-    "}\n",
-    "\n",
-    "def simple_tokenize(text):\n",
-    "    return [word.lower() for word in text.split() if word.isalpha() and word.lower() not in custom_stopwords]\n",
-    "\n",
-    "\n",
-    "def analyze_genre(genre, folder_path):\n",
-    "    files = glob.glob(os.path.join(folder_path, \"*.txt\"))\n",
-    "    if not files:\n",
-    "        print(f\"[!] No files found in {folder_path}\")\n",
-    "        return\n",
-    "\n",
-    "    all_texts = []\n",
-    "    lengths = []\n",
-    "    all_tokens = []\n",
-    "\n",
-    "    for path in files:\n",
-    "        with open(path, \"r\", encoding=\"utf-8\") as f:\n",
-    "            text = f.read()\n",
-    "            all_texts.append(text)\n",
-    "            tokens = simple_tokenize(text)\n",
-    "            all_tokens.extend(tokens)\n",
-    "            lengths.append(len(tokens))\n",
-    "\n",
-    "    # Plot length of lyrics\n",
-    "    plt.figure(figsize=(10, 5))\n",
-    "    sns.histplot(lengths, bins=20, kde=True)\n",
-    "    plt.title(f\"[{genre.upper()}] Distribution of lyric lengths\")\n",
-    "    plt.xlabel(\"Number of words\")\n",
-    "    plt.ylabel(\"Frequency\")\n",
-    "    plt.tight_layout()\n",
-    "    plt.savefig(f\"résultats/lengths_{genre}.png\")\n",
-    "    plt.close()\n",
-    "\n",
-    "    print(f\"[{genre.upper()}] Avg: {sum(lengths)/len(lengths):.1f} | Min: {min(lengths)} | Max: {max(lengths)}\")\n",
-    "\n",
-    "    # Zipf : Plot most frequent words\n",
-    "    counter = Counter(all_tokens)\n",
-    "    most_common = counter.most_common(30)\n",
-    "    words, freqs = zip(*most_common)\n",
-    "\n",
-    "    plt.figure(figsize=(12, 5))\n",
-    "    sns.barplot(x=list(words), y=list(freqs))\n",
-    "    plt.title(f\"[{genre.upper()}] Most Frequent Words\")\n",
-    "    plt.xticks(rotation=45)\n",
-    "    plt.ylabel(\"Frequency\")\n",
-    "    plt.tight_layout()\n",
-    "    plt.savefig(f\"résultats/freq_{genre}.png\")\n",
-    "    plt.close()\n",
-    "os.makedirs(\"résultats\", exist_ok=True)\n",
-    "\n",
-    "df = pd.read_csv(\"lyrics.csv\")\n",
-    "\n",
-    "custom_stopwords = {\n",
-    "    \"oh\", \"yeah\", \"uh\", \"uhh\", \"uhhh\", \"la\", \"na\", \"woo\", \"ooh\", \"ah\", \"ahh\", \"ayy\", \"ay\", \"yo\",\n",
-    "    \"got\", \"gonna\", \"wanna\", \"im\", \"ive\", \"dont\", \"aint\", \"ya\", \"youre\", \"youve\", \"thats\", \"hey\",\n",
-    "    \"like\", \"just\", \"know\", \"yeah\", \"ohh\", \"i\", \"me\", \"my\", \"let\", \"get\", \"gotta\", \"one\"\n",
-    "}\n",
-    "\n",
-    "def clean_text(text):\n",
-    "    words = text.lower().split()\n",
-    "    words = [word for word in words if word.isalpha() and word not in custom_stopwords]\n",
-    "    return ' '.join(words)\n",
-    "\n",
-    "genres = df[\"Genre\"].unique()\n",
-    "\n",
-    " # Generate word cloud\n",
-    "for genre in genres:\n",
-    "    text = ' '.join(df[df[\"Genre\"] == genre][\"Parole\"].dropna().astype(str).tolist())\n",
-    "    text = clean_text(text)\n",
-    "    wc = WordCloud(width=800, height=400, background_color='white', max_words=100).generate(text)\n",
-    "    \n",
-    "    plt.figure(figsize=(10, 5))\n",
-    "    plt.imshow(wc, interpolation='bilinear')\n",
-    "    plt.axis(\"off\")\n",
-    "    plt.title(f\"Nuage de mots - {genre}\")\n",
-    "    plt.tight_layout()\n",
-    "    plt.savefig(f\"résultats/wordcloud_{genre}.png\")\n",
-    "    plt.close()\n",
-    "\n",
-    "\n",
-    "for genre, folder in genre_folders.items():\n",
-    "    analyze_genre(genre, folder)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "5faea26c-78a4-4664-bc75-f692d5677648",
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python 3 (ipykernel)",
-   "language": "python",
-   "name": "python3"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.12.3"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 5
+import os
+import glob
+import re
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from collections import Counter
+
+# Chemins des dossiers par genre
+genre_folders = {
+    "pop": "corpus_pop/*",
+    "rap": "corpus_rap/*",
+    "rnb": "corpus_rnb/*"
 }
+
+# Fonction de lecture des paroles
+def read_lyrics(folder_path, genre):
+    data = []
+    for filepath in glob.glob(os.path.join(folder_path, "*.txt")):
+        print(f"Exploring: {os.path.join(folder_path, '*.txt')}")
+        try:
+            with open(filepath, "r", encoding="utf-8") as f:
+                text = f.read()
+                data.append({
+                    "Genre": genre,
+                    "File": os.path.basename(filepath),
+                    "Lyrics": text
+                })
+        except Exception as e:
+            print(f"Erreur de lecture de {filepath} : {e}")
+    return data
+
+# Tokenisation simple (sans NLTK)
+def simple_tokenize(text):
+    tokens = re.findall(r'\b[a-zA-Z]+\b', text.lower())
+    return tokens
+
+# Collecte des données
+corpus = []
+for genre, folder in genre_folders.items():
+    corpus.extend(read_lyrics(folder, genre))
+
+# Vérification
+if not corpus:
+    print("Aucune donnée trouvée. Vérifie les chemins des dossiers.")
+    exit()
+
+df = pd.DataFrame(corpus)
+
+# Vérification de la colonne Lyrics
+if "Lyrics" not in df.columns:
+    print("Colonne 'Lyrics' manquante dans le DataFrame.")
+    exit()
+
+# Longueur des textes
+df["Length"] = df["Lyrics"].apply(lambda t: len(simple_tokenize(str(t))))
+
+# Distribution des longueurs
+def plot_text_lengths(df):
+    plt.figure(figsize=(12, 6))
+    sns.histplot(df["Length"], bins=30, kde=True)
+    plt.title("Distribution of lyrics length (in words)")
+    plt.xlabel("Number of words")
+    plt.ylabel("Frequency")
+    plt.tight_layout()
+    plt.show()
+
+    print("Average length:", df["Length"].mean())
+    print("Max length:", df["Length"].max())
+    print("Min length:", df["Length"].min())
+
+# Distribution des mots les plus fréquents (loi de Zipf)
+def plot_zipf(df, top_n=50):
+    all_tokens = []
+    for text in df["Lyrics"].dropna():
+        tokens = simple_tokenize(text)
+        all_tokens.extend(tokens)
+
+    counter = Counter(all_tokens)
+    most_common = counter.most_common(top_n)
+    if not most_common:
+        print("Aucune donnée pour Zipf.")
+        return
+
+    words, freqs = zip(*most_common)
+
+    plt.figure(figsize=(14, 6))
+    sns.barplot(x=list(words), y=list(freqs))
+    plt.title(f"Top {top_n} frequent words")
+    plt.xticks(rotation=45)
+    plt.ylabel("Frequency")
+    plt.tight_layout()
+    plt.show()
+
+# Exécution
+plot_text_lengths(df)
+plot_zipf(df)
