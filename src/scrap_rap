@@ -1,3 +1,7 @@
+'''
+Exemple de script pour le scraping du genre rap, remplacer "rap" par les autres permet d'obtenir les résultats pour ces genres 
+'''
+
 import lyricsgenius 
 import time
 import os
