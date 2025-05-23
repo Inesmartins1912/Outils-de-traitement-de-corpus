@@ -14,7 +14,7 @@
 
 La récupération du corpus de travail ne s'est pas passée comme prévue, en effet je voulais tout d'abord scraper les artistes, puis les titres et enfin les paroles mais cela ne fonctionnait pas bien malgré de multiples modifications je me retrouvais toujours avec des scraps vides ou bien complètement bloquée, je me suis donc retrouvée avec la partie permettant de scraper des artistes qui fonctionnait et le reste non. Ayant perdu beaucoup de temps sur cette étape et afin de pouvoir tout de même rendre ce projet j'ai donc été contrainte d'utiliser l'API Genius pour les parties titres de chansons et paroles car je ne me voyais pas changer de sujet en ayant déjà avancé tous les autres scripts en parallèle.  
 
-De plus le scraping me renvoyait des noms d'artistes pour lesquels aucune chanson n'était retournée j'ai donc été obligée par manque de temps de créer des listes d'artistes manuellement pour que les scripts fonctionnent et de changer de genres en me rabattant sur des genres plus populaires et que j'avais déjà aordés préalablement au cours d'un autre projet c'est-à-dire le rap, la pop et le R&B.
+De plus le scraping me renvoyait des noms d'artistes pour lesquels aucune chanson n'était retournée j'ai donc été obligée par manque de temps de créer des listes d'artistes manuellement pour que les scripts fonctionnent et de changer de genres en me rabattant sur des genres plus populaires et que j'avais déjà abordés préalablement au cours d'un autre projet c'est-à-dire le rap, la pop et le R&B.
 
 ## TP3 : Pré-traitement des données et statistiques
 
@@ -25,8 +25,11 @@ Pour la visualisation du corpus, j'ai fait le choix d'utiliser dans un premier t
 
 ## TP4 : Augmentation des données
 
-A partir des données que vous avez récupérées, augmentez vos données en créant un dataset synthétique.
-Choississez l’architecture adaptée à votre tâche et trouvez un modèle qui correspond à votre tâche et à cette architecture.
+Les données récupérées forment déjà un dataset synthétique avec 100 chansons par genre cependant le script ```algo_test``` permet de le scinder en plusieurs morceaux pour avoir un corpus_train et un corpus_test afin d'effectuer l'entraînement et les tests des modèles. En effet, dans le cadre de ce projet pluseurs modèles de la bibliothèque ```scikitlearn``` de Python ont été utilisé :
+- Random Forest (arbres de décisions)
+- Naive Bayes
+- SVM
+Cependant étant donné que ce TP traitait de l'augmentation du dataset je vais tout de même créer un script ```increase_data``` permettant de faire cela. Ce script génère donc un corpus de 60 txt supplémentaires à partir de fichiers .txt déjà existants (classés par genre : pop, rap ou rnb). Pour chaque genre, il sélectionne aléatoirement 4 lignes de plusieurs textes (en ignorant les premières lignes qui sont souvent dans les paroles de chansons peu importante en termes de contenu pour l'analyse), puis combine ces extraits pour créer de nouveaux fichiers .txt par genre. Ces fichiers sont ensuite enregistrés dans un dossier corpus_increase, organisé par genre. Le but est d’augmenter les données d’entraînement avec des exemples réalistes mais générés de manière artificielle qui pourraient donc être utilisées pour l'analyse même si je ne le fais pas ici.
 
 ## TP5 : Finetuning du trainer d'hugging face
 
@@ -40,4 +43,4 @@ Pour ce qui est de l'évaluation du modèle le script ```algo_test``` renvoie de
     - Naive Bayes: Accuracy moyenne = 0.5865 | Écart-type = 0.0325  
     - SVM: Accuracy moyenne = 0.5730 | Écart-type = 0.0369  
     - Random Forest: Accuracy moyenne = 0.5820 | Écart-type = 0.0401  
-  On peut donc constater une légère différence entre les trois modèles avec Naive Bayes ayant un taux de précision global très haut et l'écart-type le plus faible, et SVM et Random Forect un peu moins fiable   avec un taux de précision plus faible pour SVM mais un écart-type plus grand pour Random Forest.  
+  On peut donc constater une légère différence entre les trois modèles avec Naive Bayes ayant un taux de précision global très haut et l'écart-type le plus faible, et SVM et Random Forect un peu moins fiable   avec un taux de précision plus faible pour SVM mais un écart-type plus grand pour les arbres de décisions.  
