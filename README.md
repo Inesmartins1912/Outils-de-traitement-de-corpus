@@ -16,13 +16,13 @@ Pour ce faire il faut dans un premier temps constituer un corpus d'environ 300 c
 Outils_de_traitement_de_corpus/
 ├── Journal.md                   # Journal de bord du projet
 ├── scr/                         # Dossier contenant les scripts
-│   ├── web_scrap_lyrics         # Script pour effectuer une première partie de scraping
-│   ├── scrap_genre              # Script de scraping fonctionnel par genre
-│   ├── clean_data_csv           # Script pour le pré-traitement des données et la création d'un fichier csv
-│   ├── stat_text                # Script de calculs statistiques sur les corpus
-|   ├── algo_tests               # Script utilisé pour tester la classification sur les données et renvoyer une évaluation automatique de ces données
-│   ├── increase_data            # Script permettant une augmentation du dataset
-|   └── 
+│   ├── web_scrap_lyrics.py      # Script pour effectuer une première partie de scraping
+│   ├── scrap_genre.py           # Script de scraping fonctionnel par genre
+│   ├── clean_data_csv.py        # Script pour le pré-traitement des données et la création d'un fichier csv
+│   ├── stat_text.py             # Script de calculs statistiques sur les corpus
+|   ├── algo_tests.py            # Script utilisé pour tester la classification sur les données et renvoyer une évaluation automatique de ces données
+│   ├── increase_data.py         # Script permettant une augmentation du dataset
+|   └── finetuning_hug.py        # Script avec le modèle hugging-face
 ├── data/
 |   └── raw/                      # Dossier contenant les corpus par genre
 │   |   ├── corpus_rap
