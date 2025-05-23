@@ -1,102 +1,60 @@
-{
- "cells": [
-  {
-   "cell_type": "code",
-   "execution_count": 1,
-   "id": "9bfe286f-27e1-4183-81f8-b7363bd857c2",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "import os\n",
-    "import re\n",
-    "import glob\n",
-    "import pandas as pd\n",
-    "from collections import defaultdict\n",
-    "\n",
-    "def clean_lyrics(raw_text):\n",
-    "    lines = raw_text.splitlines()\n",
-    "    non_empty_lines = [line.strip() for line in lines if line.strip()]\n",
-    "\n",
-    "    # Cas 1 : le texte contient des balises [Chorus], [Verse], etc.\n",
-    "    has_tags = any(re.match(r\"\\[.*?\\]\", line) for line in non_empty_lines)\n",
-    "\n",
-    "    filtered_lines = []\n",
-    "\n",
-    "    if has_tags:\n",
-    "        start_recording = False\n",
-    "        for line in non_empty_lines:\n",
-    "            if not start_recording and re.match(r\"\\[.*?\\]\", line):\n",
-    "                start_recording = True\n",
-    "            if start_recording:\n",
-    "                line = re.sub(r\"\\[.*?\\]\", \"\", line).strip()\n",
-    "                if line:\n",
-    "                    filtered_lines.append(line)\n",
-    "    else:\n",
-    "        # Cas 2 : pas de balises → on ignore juste la première ligne\n",
-    "        filtered_lines = non_empty_lines[1:]\n",
-    "\n",
-    "    return \"\\n\".join(filtered_lines)\n",
-    "\n",
-    "pop_folder = \"corpus_pop/*\"\n",
-    "rap_folder = \"corpus_rap/*\"\n",
-    "rnb_folder = \"corpus_rnb/*\"\n",
-    "pop_files = glob.glob(pop_folder)\n",
-    "rap_files = glob.glob(rap_folder)\n",
-    "rnb_files = glob.glob(rnb_folder)\n",
-    "\n",
-    "\n",
-    "dico = {\n",
-    "    \"pop\" : pop_files,\n",
-    "    \"rnb\" : rnb_files,\n",
-    "    \"rap\" : rap_files}\n",
-    "\n",
-    "def get_table(dico):\n",
-    "    \n",
-    "    dict_lyrics = defaultdict(list)\n",
-    "\n",
-    "    for genre, files in dico.items():\n",
-    "        for file in files:\n",
-    "            with open(file, \"r\", encoding=\"utf-8\") as f:\n",
-    "                raw_lyrics = f.read()\n",
-    "                cleaned_lyrics = clean_lyrics(raw_lyrics)\n",
-    "                dict_lyrics[\"Parole\"].append(cleaned_lyrics)\n",
-    "                dict_lyrics[\"Genre\"].append(genre)\n",
-    "                dict_lyrics[\"Titre + artiste\"].append(os.path.basename(file))\n",
-    "\n",
-    "    df = pd.DataFrame(dict_lyrics)\n",
-    "    df.to_csv(\"lyrics.csv\", index=False)\n",
-    "\n",
-    "get_table(dico)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "1a6a4877-0ec9-4e66-b7a8-c8b436f0f8f8",
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python 3 (ipykernel)",
-   "language": "python",
-   "name": "python3"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.12.3"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 5
-}
+import os
+import re
+import glob
+import pandas as pd
+from collections import defaultdict
+
+def clean_lyrics(raw_text):
+    lines = raw_text.splitlines()
+    non_empty_lines = [line.strip() for line in lines if line.strip()]
+
+    # 1 : texte contain balises : [Chorus], [Verse],...
+    has_tags = any(re.match(r"\[.*?\]", line) for line in non_empty_lines)
+
+    filtered_lines = []
+
+    if has_tags:
+        start_recording = False
+        for line in non_empty_lines:
+            if not start_recording and re.match(r"\[.*?\]", line):
+                start_recording = True
+            if start_recording:
+                line = re.sub(r"\[.*?\]", "", line).strip()
+                if line:
+                    filtered_lines.append(line)
+    else:
+        # 2 : if no balises → we ignored only lthe first line
+        filtered_lines = non_empty_lines[1:]
+
+    return "\n".join(filtered_lines)
+
+pop_folder = "corpus/pop/*"
+rap_folder = "corpus/rap/*"
+rnb_folder = "corpus/rnb/*"
+pop_files = glob.glob(pop_folder)
+rap_files = glob.glob(rap_folder)
+rnb_files = glob.glob(rnb_folder)
+
+
+dico = {
+    "pop" : pop_files,
+    "rnb" : rnb_files,
+    "rap" : rap_files}
+
+def get_table(dico):
+    
+    dict_lyrics = defaultdict(list)
+
+    for genre, files in dico.items():
+        for file in files:
+            with open(file, "r", encoding="utf-8") as f:
+                raw_lyrics = f.read()
+                cleaned_lyrics = clean_lyrics(raw_lyrics)
+                dict_lyrics["Parole"].append(cleaned_lyrics)
+                dict_lyrics["Genre"].append(genre)
+                dict_lyrics["Titre + artiste"].append(os.path.basename(file))
+
+    df = pd.DataFrame(dict_lyrics)
+    df.to_csv("lyrics.csv", index=False)
+
+get_table(dico)
