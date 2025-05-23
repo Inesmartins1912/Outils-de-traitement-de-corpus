@@ -6,14 +6,14 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from collections import Counter
 
-# Chemins des dossiers par genre
+# Path to folder per genre
 genre_folders = {
     "pop": "corpus_pop/*",
     "rap": "corpus_rap/*",
     "rnb": "corpus_rnb/*"
 }
 
-# Fonction de lecture des paroles
+# Function to read lyrics
 def read_lyrics(folder_path, genre):
     data = []
     for filepath in glob.glob(os.path.join(folder_path, "*.txt")):
@@ -30,32 +30,32 @@ def read_lyrics(folder_path, genre):
             print(f"Erreur de lecture de {filepath} : {e}")
     return data
 
-# Tokenisation simple (sans NLTK)
+# Tokenization 
 def simple_tokenize(text):
     tokens = re.findall(r'\b[a-zA-Z]+\b', text.lower())
     return tokens
 
-# Collecte des données
+# Collect dataset
 corpus = []
 for genre, folder in genre_folders.items():
     corpus.extend(read_lyrics(folder, genre))
 
-# Vérification
+# Verification
 if not corpus:
     print("Aucune donnée trouvée. Vérifie les chemins des dossiers.")
     exit()
 
 df = pd.DataFrame(corpus)
 
-# Vérification de la colonne Lyrics
+# Verification column Lyrics
 if "Lyrics" not in df.columns:
     print("Colonne 'Lyrics' manquante dans le DataFrame.")
     exit()
 
-# Longueur des textes
+# Length of texts
 df["Length"] = df["Lyrics"].apply(lambda t: len(simple_tokenize(str(t))))
 
-# Distribution des longueurs
+# Plot of lengths
 def plot_text_lengths(df):
     plt.figure(figsize=(12, 6))
     sns.histplot(df["Length"], bins=30, kde=True)
@@ -69,7 +69,7 @@ def plot_text_lengths(df):
     print("Max length:", df["Length"].max())
     print("Min length:", df["Length"].min())
 
-# Distribution des mots les plus fréquents (loi de Zipf)
+# Plot of frequency (loi de Zipf)
 def plot_zipf(df, top_n=50):
     all_tokens = []
     for text in df["Lyrics"].dropna():
@@ -92,6 +92,6 @@ def plot_zipf(df, top_n=50):
     plt.tight_layout()
     plt.show()
 
-# Exécution
+# Execution
 plot_text_lengths(df)
 plot_zipf(df)
