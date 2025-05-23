@@ -35,7 +35,7 @@ Cependant étant donné que ce TP traitait de l'augmentation du dataset je vais 
 
 ## TP5 : Finetuning du trainer d'hugging face
 
-Finetuner le modèle pretrained qui correspond le plus à vos données grâce au trainer d’hugging face
+J'ai tenté de finetuner le modèle pretrained qui correspond le plus à mon dataset grâce au trainer d’hugging face, mais cela n'a pas fonctionné, il m'a été impossible de réussir à faire en sorte que le script détecte le contenu du fichier ```lyrics.csv``` qui pourtant était bien détecté dans le script ```algo_test```. Je n'ai donc pas réussi à trouver l'origine du problème et je me vois donc obligée de rendre ce script disfonctionnel par manque de temps.
 
 ## TP6 : Évaluation de mon modèle 
 
