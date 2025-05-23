@@ -15,7 +15,7 @@ Pour ce faire il faut dans un premier temps constituer un corpus d'environ 300 c
 ```
 Outils_de_traitement_de_corpus/
 ├── Journal.md                   # Journal de bord du projet
-├── scr/                         # Dossier contenant les scripts
+├── src/                         # Dossier contenant les scripts
 │   ├── web_scrap_lyrics.py      # Script pour effectuer une première partie de scraping
 │   ├── scrap_genre.py           # Script de scraping fonctionnel par genre
 │   ├── clean_data_csv.py        # Script pour le pré-traitement des données et la création d'un fichier csv
